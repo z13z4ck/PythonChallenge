@@ -1,3 +1,5 @@
+#the final is 250
+
 import urllib2
 from urllib2 import Request
 htmlurl = "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing="
@@ -11,27 +13,42 @@ htmlinfo = urllib2.urlopen(html)
 # print htmlinfo.read()
 l = htmlinfo.read()
 
-print l
-integer =  int(filter(str.isdigit,l))
-print str(integer)
+#read in another 	
+l = re.search("next nothing is (\d+)", l)
 
-print "next"
+print l.group(0)
+print "test %s"%l.group(1)
+print htmlurl + l.group(1)
 
-htmlurl1 = htmlurl + str(integer)
-print htmlurl1
+new  = htmlurl + l.group(1)
+
+# Request(htmlurl + l.group(1))
+
+integer = l.group(1)
+# integer =  int(filter(str.isdigit,l))
+# print str(integer)
+
+# print "next"
+
+# htmlurl1 = htmlurl + str(integer)
+# print htmlurl1
 
 count = 1
 while count < 400:
 	print "Count = %d" %count
-	html = Request(htmlurl+str(integer))
-	print "Current HTML = %s" %(htmlurl + str(integer))
+	new = htmlurl + str(integer)
+	html = Request(new)
+	htmlinfo = urllib2.urlopen(html)
+	print "Current HTML = %s" %(new)
+	
 	htmlinfo = urllib2.urlopen(html)
 	l = htmlinfo.read()
+	l = re.search("next nothing is (\d+)", l)
 	if count == 85:
 		integer = integer/2
 		print "Dividing integer by 2"
 	else:
-		integer =  int(filter(str.isdigit,l))
+		integer =  int(l.group(1))
 	print "Current number = %d" %integer
 	count+=1
 
