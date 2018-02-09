@@ -7,4 +7,4 @@ output = "cdefghijklmnopqrstuvwxyzab"
 
 changed = maketrans(charin,output)
 
-print character.translate(changed)
+print (character).translate(changed)
